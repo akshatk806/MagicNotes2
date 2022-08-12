@@ -58,18 +58,21 @@ function showNotes(){
 
 // Function to delete a note
 function deleteNote(index){
-    console.log(index);
-    let notes=localStorage.getItem('notes');
-    if(notes==null){
-        notesObj=[];
+    let confirmDelete=confirm("Do You really want to Delete this note");
+    if(confirmDelete){
+        console.log(index);
+        let notes=localStorage.getItem('notes');
+        if(notes==null){
+            notesObj=[];
+        }
+        else{
+            notesObj=JSON.parse(notes);
+        }
+        notesObj.splice(index,1);
+        // updating localStorage after deleting
+        localStorage.setItem('notes',JSON.stringify(notesObj))
+        showNotes();
     }
-    else{
-        notesObj=JSON.parse(notes);
-    }
-    notesObj.splice(index,1);
-    // updating localStorage after deleting
-    localStorage.setItem('notes',JSON.stringify(notesObj))
-    showNotes();
 }
 
 let search=document.getElementById('searchBtn');
